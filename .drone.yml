@@ -3,7 +3,7 @@ name: default
 
 steps:
 - name: test
-  image: openjdk
+  image: mvn
   commands:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - mvn test -B
