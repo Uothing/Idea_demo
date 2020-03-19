@@ -1,19 +1,9 @@
 kind: pipeline
-type: docker
-name: build
-steps:
-- name: build
-  image: golang:alpine
-  pull: if-not-exists # always never
-  environment:
-    KEY: VALUE
-  commands:
-    - echo $KEY
-    - pwd
-    - ls
-    - CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
-    - ./app
+name: default
 
-trigger:
-  branch:
-  - master
+steps:
+- name: test
+  image: maven:3-jdk-10
+  commands:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn test -B
